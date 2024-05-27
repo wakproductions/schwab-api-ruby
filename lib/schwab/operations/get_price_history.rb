@@ -1,6 +1,6 @@
-require 'tdameritrade/operations/base_operation'
+require 'schwab/operations/base_operation'
 
-module TDAmeritrade; module Operations
+module Schwab; module Operations
   class GetPriceHistory < BaseOperation
 
     # Not used right now, but can be used later on for validation
@@ -17,36 +17,35 @@ module TDAmeritrade; module Operations
       start_date: nil, # should be a Date
       need_extended_hours_data: false
     )
+      raise(ArgumentError, "Can't use period if using start_date/end_date") if start_date.present? && period.present?
+
       params = {
-        apikey: client.client_id,
         needExtendedHoursData: need_extended_hours_data,
+        symbol: symbol
       }
 
       params.merge!(frequencyType: frequency_type) if frequency_type
       params.merge!(frequency: frequency) if frequency
 
-      # NOTE: can't use period if using start and end dates
       params.merge!(periodType: period_type) if period_type
       params.merge!(period: period) if period
       params.merge!(startDate: "#{start_date.strftime('%s')}000") if start_date
       params.merge!(endDate: "#{end_date.strftime('%s')}000") if end_date
 
       response = perform_api_get_request(
-        url: "https://api.tdameritrade.com/v1/marketdata/#{symbol}/pricehistory",
+        url: 'https://api.schwabapi.com/marketdata/v1/pricehistory',
         query: params,
       )
 
-      parsed_response = parse_api_response(response)
-
-      if parsed_response["candles"]
-        parsed_response["candles"].map do |candle|
+      if response["candles"]
+        response["candles"].map do |candle|
           if candle["datetime"].is_a? Numeric
             candle["datetime"] = Time.at(candle["datetime"] / 1000)
           end
         end
       end
 
-      parsed_response
+      response
     end
 
     private

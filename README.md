@@ -1,7 +1,7 @@
 # TD Ameritrade API gem for Ruby
 
-This is a gem for connecting to the OAuth/JSON-based TD Ameritrade Developers API released in 2018. Go to 
-https://developer.tdameritrade.com/ for the official documentation and to create your OAuth application.
+This is a gem for connecting to the OAuth/JSON-based Schwab API released in 2018. Go to
+https://beta-developer.schwab.com/ to create your OAuth application login and view the official documentation.
 
 For a gem that allows you to connect to the older version of the TDAmeritrade API, go to 
 https://github.com/wakproductions/tdameritrade_api
@@ -10,41 +10,29 @@ https://github.com/wakproductions/tdameritrade_api
 
 In your Gemfile
 
-`gem 'tdameritrade-api-ruby', git: 'https://github.com/wakproductions/tdameritrade-api-ruby.git'`
+`gem 'schwab-api-ruby', git: 'https://github.com/wakproductions/schwab-api-ruby.git'`
 
 ## Authenticating
 
-Currently this gem is designed for private app authorization. Read this guide for a general overview of signing in your
-private app: https://developer.tdameritrade.com/content/simple-auth-local-apps
-
-The TD Ameritrade API now uses OAuth for authentication. For an introduction to the OAuth flow, [I recommend reading
-this tutorial](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2).
-
-I plan on writing more detailed instructions in the file /doc/authentication.md
-
-See my video [Stonks on Rails Episode #2 - Connecting to TD Ameritrade via OAuth](https://youtu.be/diawswdQhME) for
-a more detailed walkthrough of the OAuth authentication process.
+Currently this gem is designed for local app authorization of the "Trader API - Individual". It is based on the
+assumption that you will be using https://127.0.0.1 as the OAuth redirect_uri, as that is the only value that's
+been tested and verified to work
 
 ## Basic Usage
 
 ```
-client = TDAmeritrade::Client.new(
-  client_id: 'MYCLIENTID@AMER.OAUTHAP', 
-  redirect_uri: 'http://my-redirect-url', 
-  refresh_token: 'b6w31RJvP/Cz3MVghpx8S5dzeYVcHygEQHKWYQuI98NGpsMb1j...'
+client = SchwabAPI::Client.new(
+  client_id: <client_id>, 
+  redirect_uri: 'https://127.0.0.1', 
+  refresh_token: '<refresh_token>'
 )
 
-client.get_instrument_fundamentals('TWTR')
-#=> {"TWTR"=>
+client.get_instrument_fundamentals('MSFT')
+#=> {"MSFT"=>
       {"fundamental"=>
-        {"symbol"=>"TWTR",
-         "high52"=>47.79,
-         "low52"=>20.12,
-         "dividendAmount"=>0.0,
-         "dividendYield"=>0.0,
-         "peRatio"=>17.93788,
-         "pegRatio"=>0.039026,
-         "pbRatio"=>3.85707,
+        {"symbol"=>"MSFT",
+         "high52"=>425.24,
+         "low52"=>340.33,
          ...
 ```
 
@@ -53,21 +41,11 @@ client.get_instrument_fundamentals('TWTR')
 The official API is documented [here](https://developer.tdameritrade.com/apis). This gem currently implements the
 following functionality. If you would like to expand its functionality, then please submit a pull request.
 
-- [ ] Accounts and Trading
 - [x] Authentication
-- [x] Instruments
-- [ ] Market Hours
-- [ ] Movers
-- [ ] Option Chains
+- [ ] Accounts and Trading
+- [ ] Instruments
 - [x] Price History
-- [ ] Real-time Quotes
-- [ ] Transaction History
-- [ ] User Info and Preferences
-- [x] Watchlist
-  - [x] Get Watchlists
-  - [x] Replace Watchlist  
-  - [x] Delete Watchlist  
-  - [x] Update Watchlist  
+- [x] Real-time Quotes
 
 ## Contributions
 

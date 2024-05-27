@@ -1,4 +1,5 @@
-module TDAmeritrade; module Operations; module Support
+module Schwab
+  ; module Operations; module Support
   module BuildWatchlistItems
 
     # This gem only supports EQUITY type, even though there is a lot more you can do with the API

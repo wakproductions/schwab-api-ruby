@@ -1,3 +1,6 @@
+Version 2.0.0
+- This is version 2.0.0 becuase it's a continuation of the TDAmeritradeAPI gem.
+
 Version 1.3.0.20210215
 - Added tracking of token expiration dates to instance vars
 - API request results are now returned as a Hashie::Mash to make 'quotes' or :symbol reference of values indifferent

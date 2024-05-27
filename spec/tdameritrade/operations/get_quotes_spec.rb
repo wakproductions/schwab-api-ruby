@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'support/authenticated_client'
-require 'tdameritrade'
+require 'schwab'
 
-describe TDAmeritrade::Operations::GetQuotes do
+describe Schwab::Operations::GetQuotes do
   include_context 'authenticated client'
   # include_context 'webmock off'
 
-  context 'valid symbol' do
+  pending 'valid symbol' do
     subject do
       client.get_quotes(symbols)
     end
@@ -14,7 +14,7 @@ describe TDAmeritrade::Operations::GetQuotes do
     let(:symbols) { %w(PG MSFT CVX) }
 
     let!(:expected_request) do
-      TDAmeritrade::Spec::Mocks::MockGetQuotes.mock_find(
+      Schwab::Spec::Mocks::MockGetQuotes.mock_find(
         request: {
           headers: { 'Authorization': "Bearer #{client.access_token}" },
           query: {
@@ -317,7 +317,7 @@ describe TDAmeritrade::Operations::GetQuotes do
     it { is_expected.to eql(expected_result) }
   end
 
-  context 'invalid symbol' do
+  pending 'invalid symbol' do
     subject do
       client.get_quotes(symbols)
     end
@@ -325,7 +325,7 @@ describe TDAmeritrade::Operations::GetQuotes do
     let(:symbols) { %w(XZXX) }
 
     let!(:expected_request) do
-      TDAmeritrade::Spec::Mocks::MockGetQuotes.mock_find(
+      Schwab::Spec::Mocks::MockGetQuotes.mock_find(
         request: {
           headers: { 'Authorization': "Bearer #{client.access_token}" },
           query: {

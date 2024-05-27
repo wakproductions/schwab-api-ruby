@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'tdameritrade_api_mock_base.rb')
 
-module TDAmeritrade; module Spec; module Mocks;
+module Schwab
+  ; module Spec; module Mocks;
   class MockGetInstrumentFundamentals < TDAmeritradeMockBase
 
     def self.mock_find(request: { query: {}, headers: {} }, response: { status: 200, body: '' })

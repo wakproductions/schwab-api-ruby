@@ -1,5 +1,5 @@
 require "bundler/gem_tasks"
-require 'tdameritrade-api-ruby'
+require 'schwab-api-ruby'
 
 # This is just a placeholder
 # task :taskname do

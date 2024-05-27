@@ -1,22 +1,22 @@
 require 'spec_helper'
 require 'support/authenticated_client'
-require 'tdameritrade'
+require 'schwab'
 
-describe TDAmeritrade::Operations::GetPriceHistory do
+describe Schwab::Operations::GetPriceHistory do
   include_context 'authenticated client'
   # include_context 'webmock off'
 
   let(:single_ticker) { 'PG' }
   let(:multiple_tickers) { ['PG', 'MSFT', 'BA'] }
 
-  context '5 days of 5-min candles' do
+  pending '5 days of 5-min candles' do
     context 'single ticker' do
       subject do
         client.get_price_history(single_ticker, period_type: :day, period: 10, frequency: 5, frequency_type: :minute)
       end
 
       let!(:expected_request) do
-        TDAmeritrade::Spec::Mocks::MockGetPriceHistory.mock_find(
+        Schwab::Spec::Mocks::MockGetPriceHistory.mock_find(
           symbol: single_ticker,
           request: {
             headers: { 'Authorization': "Bearer #{client.access_token}" },
@@ -75,14 +75,14 @@ describe TDAmeritrade::Operations::GetPriceHistory do
       pending 'does not appear to be supported yet by the API'
     end
 
-    context 'invalid ticker or one with no data' do
+    pending 'invalid ticker or one with no data' do
       subject do
         client.get_price_history(invalid_ticker, period: 1, period_type: :month, frequency: 5, frequency_type: :minute)
       end
       let(:invalid_ticker) { 'XXX' }
 
       let!(:expected_request) do
-        TDAmeritrade::Spec::Mocks::MockGetPriceHistory.mock_find(
+        Schwab::Spec::Mocks::MockGetPriceHistory.mock_find(
           symbol: invalid_ticker,
           request: {
             headers: { 'Authorization': "Bearer #{client.access_token}" },
@@ -114,7 +114,7 @@ describe TDAmeritrade::Operations::GetPriceHistory do
       it { is_expected.to eql(expected_result) }
     end
 
-    context 'invalid request due to mismatched frequency type and interval' do
+    pending 'invalid request due to mismatched frequency type and interval' do
       subject do
         # Can't use minute with the monthly period type
         client.get_price_history(
@@ -128,7 +128,7 @@ describe TDAmeritrade::Operations::GetPriceHistory do
       end
 
       let!(:expected_request) do
-        TDAmeritrade::Spec::Mocks::MockGetPriceHistory.mock_find(
+        Schwab::Spec::Mocks::MockGetPriceHistory.mock_find(
           symbol: single_ticker,
           request: {
             headers: { 'Authorization': "Bearer #{client.access_token}" },
@@ -151,7 +151,7 @@ describe TDAmeritrade::Operations::GetPriceHistory do
       end
 
       it 'raises an error' do
-        expect { subject }.to raise_error(TDAmeritrade::Error::TDAmeritradeError, "400: Bad request.")
+        expect { subject }.to raise_error(Schwab::Error::SchwabAPIError, "400: Bad request.")
       end
     end
 

@@ -1,4 +1,5 @@
-module TDAmeritrade; module Spec; module Mocks
+module Schwab
+  ; module Spec; module Mocks
   class TDAmeritradeMockBase
 
     API_BASE_URL = 'https://api.tdameritrade.com/v1'
