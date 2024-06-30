@@ -35,7 +35,7 @@ describe Schwab::Error do
     end
 
     it 'raises a RateLimitError' do
-      expect { subject }.to raise_error(Schwab::Error::RateLimitError)
+      expect { subject }.to raise_error(Schwab::RateLimitError)
     end
   end
 
@@ -68,7 +68,7 @@ describe Schwab::Error do
     end
 
     it 'raises a NotAuthorizedError' do
-      expect { subject }.to raise_error(Schwab::Error::NotAuthorizedError)
+      expect { subject }.to raise_error(Schwab::NotAuthorizedError)
     end
   end
 

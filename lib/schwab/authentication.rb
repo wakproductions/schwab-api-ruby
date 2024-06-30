@@ -44,7 +44,7 @@ module Schwab
       )
 
       unless response_success?(response)
-        raise Schwab::Error::SchwabAPIError.new(
+        raise Schwab::APIError.new(
           "Unable to retrieve access tokens from API - #{response.code} - #{response.body}"
         )
       end
