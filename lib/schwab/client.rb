@@ -2,7 +2,7 @@ require 'schwab/authentication'
 require 'schwab/client'
 require 'schwab/error'
 require 'schwab/version'
-# require 'schwab/operations/get_instrument_fundamentals'
+require 'schwab/operations/get_instrument'
 require 'schwab/operations/get_price_history'
 require 'schwab/operations/get_quotes'
 
@@ -21,9 +21,9 @@ module Schwab
       @redirect_uri = args[:redirect_uri] || raise_error('redirect_uri is required!')
     end
 
-    # def get_instrument_fundamentals(symbol)
-    #   Operations::GetInstrumentFundamentals.new(self).call(symbol)
-    # end
+    def get_instrument(symbol, projection)
+      Operations::GetInstrument.new(self).call(symbol, projection:)
+    end
 
     def get_price_history(symbol, **options)
       Operations::GetPriceHistory.new(self).call(symbol, **options)

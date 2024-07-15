@@ -1,3 +1,6 @@
+Version 2.1.0
+- Enable Instrument endpoint with "projection" param so you can query for fundamentals or other data about the ticker
+
 Version 2.0.0
 - This is version 2.0.0 becuase it's a continuation of the TDAmeritradeAPI gem.
 
