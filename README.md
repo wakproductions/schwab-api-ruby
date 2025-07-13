@@ -1,4 +1,4 @@
-# TD Ameritrade API gem for Ruby
+# Schwab API (formerly TD Ameritrade API) gem for Ruby
 
 This is a gem for connecting to the OAuth/JSON-based Schwab API released in 2018. Go to
 https://beta-developer.schwab.com/ to create your OAuth application login and view the official documentation.
