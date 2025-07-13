@@ -42,10 +42,73 @@ The official API is documented [here](https://developer.tdameritrade.com/apis). 
 following functionality. If you would like to expand its functionality, then please submit a pull request.
 
 - [x] Authentication
-- [ ] Accounts and Trading
-- [ ] Instruments
+- [X] Accounts and Trading
+- [X] Instruments
 - [x] Price History
 - [x] Real-time Quotes
+
+The following functions correspond to the Schwab Individual Trader API specification found in the online docs:
+* get_accounts(fields=nil)
+* get_account_numbers
+* get_instrument(symbol, projection)
+* get_instrument_by_cusip(cusip)
+* get_price_history(symbol, **options)
+* get_quotes(symbols, **options)
+* get_transactions(...)
+
+# Example usage
+
+```ruby
+client = Schwab::Client.new(
+  client_id: ENV.fetch('SCHWAB_CLIENT_ID'),
+  secret: ENV.fetch('SCHWAB_SECRET'),
+  redirect_uri: ENV.fetch('SCHWAB_REDIRECT_URI'),
+  access_token: '<access token you received after running the OAuth authentication step>',
+  refresh_token: '<access token you received after running the OAuth authentication step>',
+  access_token_expires_at:,
+  refresh_token_expires_at:
+)
+
+symbols = %w[SCHW HOOD MS]
+result = client.get_quotes(symbols, fields: :quote)
+#=> {"SCHW" =>
+# {"assetMainType" => "EQUITY",
+#  "assetSubType" => "COE",
+#  "quoteType" => "NBBO",
+#  "realtime" => true,
+#  "ssid" => 1516105793,
+#  "symbol" => "SCHW",
+#  "quote" =>
+#    {"52WeekHigh" => 93.35,
+#     "52WeekLow" => 61.01,
+#     "askMICId" => "ARCX",
+#     "askPrice" => 92.0,
+#     "askSize" => 1,
+#     "askTime" => 1752276764663,
+#     "bidMICId" => "ARCX",
+#     "bidPrice" => 91.5,
+#     "bidSize" => 1,
+#     "bidTime" => 1752278152374,
+#     "closePrice" => 93.04,
+#     "highPrice" => 92.99,
+#     "lastMICId" => "ARCX",
+#     "lastPrice" => 91.8,
+#     "lastSize" => 5,
+#     "lowPrice" => 91.825,
+#     "mark" => 91.97,
+#     "markChange" => -1.07,
+#     "markPercentChange" => -1.15004299,
+#     "netChange" => -1.24,
+#     "netPercentChange" => -1.3327601,
+#     "openPrice" => 92.53,
+#     "postMarketChange" => -0.17,
+#     "postMarketPercentChange" => -0.18484288,
+#     "quoteTime" => 1752278152374,
+#     "securityStatus" => "Normal",
+#     "totalVolume" => 6815842,
+#     "tradeTime" => 1752277607998}}}
+```
+
 
 ## Contributions
 

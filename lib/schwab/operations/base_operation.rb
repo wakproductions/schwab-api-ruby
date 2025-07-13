@@ -27,6 +27,8 @@ module Schwab
           raise Schwab::RateLimitError.new(response.body)
         elsif response.code == 401
           raise Schwab::NotAuthorizedError.new(response.body)
+        elsif response.code == 404
+          raise Schwab::BadRequestError.new(response.body)
         end
 
         error_message = response['errors'].to_s
@@ -41,7 +43,7 @@ module Schwab
         raise ArgumentError unless response.is_a?(HTTParty::Response)
         handle_api_error(response) unless response_success?(response)
 
-        response.to_h
+        JSON.parse(response.body)
       end
 
       def perform_api_get_request(url: , query: nil)

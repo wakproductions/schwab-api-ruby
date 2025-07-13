@@ -1,8 +1,11 @@
+Version 2.2.0
+- Add new methods: `get_account_numbers`, `get_accounts`, `get_instrument_by_cusip`, `get_transactions`
+
 Version 2.1.0
 - Enable Instrument endpoint with "projection" param so you can query for fundamentals or other data about the ticker
 
 Version 2.0.0
-- This is version 2.0.0 becuase it's a continuation of the TDAmeritradeAPI gem.
+- This is version 2.0.0 because it's a continuation of the TDAmeritradeAPI gem.
 
 Version 1.3.0.20210215
 - Added tracking of token expiration dates to instance vars

@@ -8,6 +8,9 @@ module Schwab
   class NotAuthorizedError < StandardError
   end
 
+  class BadRequestError < StandardError
+  end
+
   module Error
     module_function
 
