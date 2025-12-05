@@ -3,15 +3,17 @@ require 'schwab/operations/base_operation'
 module Schwab; module Operations
   class GetQuotes < BaseOperation
 
-    FIELDS = %i[quote fundamental]
+    FIELDS = %i[quote extended fundamental reference regular]
 
-    def call(symbols: [], fields: nil)
-      raise(ArgumentError, 'fields must be :quote or :fundamental') if fields.present? && FIELDS.exclude?(fields)
+    def call(symbols: [], fields: [])
+      if fields.present? && fields.any? { |field| FIELDS.exclude?(field) }
+        raise(ArgumentError, "all fields must be in #{FIELDS}, got #{fields}")
+      end
 
       params = {
         symbols: symbols.join(','),
       }
-      params.merge!(fields:) if fields.present?
+      params.merge!(fields: fields.join(',')) if fields.present?
 
       perform_api_get_request(
         url: "https://api.schwabapi.com/marketdata/v1/quotes",

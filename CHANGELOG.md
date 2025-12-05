@@ -1,3 +1,6 @@
+Version 2.2.1
+- Expanded "fields" param for `get_quote` so that you can specify more return types  
+
 Version 2.2.0
 - Add new methods: `get_account_numbers`, `get_accounts`, `get_instrument_by_cusip`, `get_transactions`
 
